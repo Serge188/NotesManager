@@ -1,0 +1,22 @@
+CREATE TABLE notes (
+id BIGSERIAL NOT NULL PRIMARY KEY,
+text VARCHAR NOT NULL,
+date TIMESTAMP,
+avatar VARCHAR,
+user_name VARCHAR,
+CONSTRAINT fk_notes_users FOREIGN KEY (user_name) REFERENCES users(user_name)
+);
+
+CREATE TABLE IF NOT EXISTS users (
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+  user_name VARCHAR NOT NULL UNIQUE,
+  password VARCHAR(60) NOT NULL,
+  enabled BOOLEAN NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS authorities (
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+  user_name VARCHAR NOT NULL,
+  authority VARCHAR,
+  CONSTRAINT fk_authorities_users FOREIGN KEY (user_name) REFERENCES users(user_name)
+)
